@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Home</title> 
+{% endblock %}
+
+{% block body %}
+<h1 class="display-5">All Blogs</h1>
+<hr>
+{% for post in posts %}
+        <h2 class="display-6" style="font-size: x-large; font-weight: 400;">{{ post.title }}</h2>
+        {% if post.author %}
+            <h5 class="display-6" style="font-size: medium;">By: {{ post.author }}</h5>
+        {% else %}
+            <h3>By: N/A</h3>
+        {% endif %}
+        
+        <p>{{ post.content }}</p>
+        <a href='/posts/delete/{{post.id}}'>Delete</a>
+        <a href='/posts/edit/{{post.id}}'>Edit</a>
+        <hr>
+    {% endfor%}
+{% endblock %}
