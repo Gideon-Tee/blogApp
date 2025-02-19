@@ -10,17 +10,16 @@ app = Flask(__name__)
 # Load environment variables
 load_dotenv()
 
-# Get MySQL credentials from .env
-MYSQL_USER = os.getenv('MYSQL_USER')
-MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
+# RDS endpoint and credentials
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_NAME = os.getenv("DB_NAME")
 
-# Database Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@localhost/flask_blog'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Suppress warning
+app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Initialize Database
 db = SQLAlchemy(app)
-
 
 class BlogPost(db.Model):
     __tablename__ = 'BlogPost'
