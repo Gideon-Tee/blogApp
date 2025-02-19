@@ -14,13 +14,14 @@
         <input type='text' name='author' id='author' class="form-control">
         <br>
         Post:  <br>
-        <input type='text' name='content' id='content' class="form-control">
+        <textarea name="content" id="content" class="form-control" rows="5"></textarea>
+        <!-- <input type='' name='content' id='content' class="form-control"> -->
         <br>
-        <input type='submit' value='Post' class="btn btn-success col-sm-3">
+        <input type='submit' value='Post' class="w-100 btn btn-success col-sm-3 mx-auto">
     </form>
     <hr>
 
-    {% for post in posts %}
+    <!-- {% for post in posts %}
     <h2 class="display-6" style="font-size: x-large; font-weight: 400;">{{ post.title }}</h2>
     {% if post.author %}
         <h5 class="display-6" style="font-size: medium;">By: {{ post.author }}</h5>
@@ -32,6 +33,6 @@
     <a href='/posts/delete/{{post.id}}'>Delete</a>
     <a href='/posts/edit/{{post.id}}'>Edit</a>
     <hr>
-    {% endfor%}
+    {% endfor%} -->
 
 {% endblock %}
