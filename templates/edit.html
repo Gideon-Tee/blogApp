@@ -1,22 +1,27 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<title>Edit Post</title> 
-{% endblock %}
-
 {% block body %}
-<h1>Editing Post</h1>
-
-    <hr>
-    <h2>Edit:</h2>
-    <form action='/posts/edit/{{post.id}}' method='POST'>
-        Title: <input type='text' name='title' id='title' value="{{post.title}}">
-        <br>
-        Author: <input type='text' name='author' id='author' value="{{post.author}}">
-        <br>
-        Post: <input type='text' name='content' id='content' value="{{post.content}}">
-        <br>
-        <input type='submit' value='Save'>
-    </form>
-    <hr>
+<h2>Edit Post</h2>
+<form method="POST" enctype="multipart/form-data" class="bg-light rounded p-3">  <!-- Add enctype -->
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" value="{{ post.title }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Author</label>
+        <input type="text" name="author" class="form-control" value="{{ post.author }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Cover Image</label>
+        <input type="file" name="cover_image" class="form-control" accept="image/*">
+        {% if post.cover_image_url %}
+            <img src="{{ post.cover_image_url }}" alt="Current Cover" class="img-thumbnail mt-2" style="max-width: 200px;">
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Content</label>
+        <textarea name="content" class="form-control" rows="5" required>{{ post.content }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
 {% endblock %}

@@ -8,16 +8,28 @@
 <h1 class="display-5">All Blogs</h1>
 <hr>
 {% for post in posts %}
-        <h2 class="display-6" style="font-size: x-large; font-weight: 400;">{{ post.title }}</h2>
-        {% if post.author %}
-            <h5 class="display-6" style="font-size: medium;">By: {{ post.author }}</h5>
-        {% else %}
-            <h3>By: N/A</h3>
+    <div class="card mb-3 shadow mb-4">
+        {% if post.cover_image_url %}
+            <img src="{{ post.cover_image_url }}" class="card-img-top" alt="Cover Image">
         {% endif %}
-        
-        <p>{{ post.content }}</p>
-        <a href='/posts/delete/{{post.id}}'>Delete</a>
-        <a href='/posts/edit/{{post.id}}'>Edit</a>
-        <hr>
-    {% endfor%}
+        <div class="card-body">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <h5 class="card-subtitle mb-2 text-muted">By: {{ post.author }}</h5>
+            <p class="card-text">{{ post.content }}</p>
+            <div class="btn-group">
+              <a href="/posts/edit/{{ post.id }}" class="btn btn-sm btn-primary" title="Edit">
+                <i class="bi bi-pencil-fill"></i>
+              </a>
+              <a href="/posts/delete/{{ post.id }}" class="btn btn-sm btn-danger mx-4" title="Delete">
+                  <i class="bi bi-trash-fill"></i>
+              </a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
 {% endblock %}
+
+
+<div class="btn-group" role="group">
+
+        </div>
