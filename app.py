@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-
+from flask_migrate import Migrate
 import boto3
 from botocore.exceptions import NoCredentialsError
 from werkzeug.utils import secure_filename
@@ -19,13 +19,17 @@ load_dotenv()
 # Get MySQL credentials from .env
 MYSQL_USER = os.getenv('MYSQL_USER')
 MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
+MYSQL_HOST = os.getenv('MYSQL_HOST')  # RDS endpoint
+MYSQL_DB = os.getenv('MYSQL_DB', 'appDB')
 
 # Database Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@localhost/flask_blog'
+# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@localhost/flask_blog' # local host mysql connection
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DB}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Suppress warning
 
 # Initialize Database
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 # Configure S3 client
 s3 = boto3.client(
